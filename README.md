@@ -1,36 +1,33 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
-
 ## Getting Started
 
-First, run the development server:
-
 ```bash
-npm run dev
-# or
-yarn dev
-# or
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Structure
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+figma-comments-plugin/
+├── public/
+│ └── plugin-ui.html // 플러그인 iframe UI
+├── app/
+│ ├── api/
+│ │ ├── oauth/
+│ │ │ ├── login/route.ts // OAuth 로그인 시작
+│ │ │ └── callback/route.ts // OAuth 콜백 처리 (토큰 발급)
+│ │ └── comments/route.ts // 코멘트 API 중계
+│ ├── page.tsx // 메인 페이지 (개발용)
+├── src/
+│ ├── components/
+│ │ └── CommentTable.tsx // 코멘트 테이블 컴포넌트
+│ └── lib/
+│ └── figmaApi.ts // Figma API 호출 로직
+├── .env.local // 환경변수 (Client ID, Secret 등)
+├── next.config.js // Next.js 설정 파일
+├── package.json
+└── README.md
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+api
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- login
+  클라이언트ID, 리다이렉트 주소, 권한 등을 담아 oauthURL 로 날려보낸다
+  이슈 : 여기서 막힘 => 제대로된 주소를 넣고 다시 테스트 해보자
