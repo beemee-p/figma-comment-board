@@ -26,8 +26,8 @@ figma-comments-plugin/
 ├── package.json
 └── README.md
 
-api
+## 진행상황
 
-- login
+- login api
   클라이언트ID, 리다이렉트 주소, 권한 등을 담아 oauthURL 로 날려보낸다
   이슈 : 여기서 막힘 => 제대로된 주소를 넣고 다시 테스트 해보자
