@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title>Figma Comment Board</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<!-- React CDN -->
+		<script
+			crossorigin
+			src="https://unpkg.com/react@18/umd/react.development.js"
+		></script>
+		<script
+			crossorigin
+			src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+		></script>
+		<script
+			crossorigin
+			src="https://unpkg.com/babel-standalone@6/babel.min.js"
+		></script>
+		<style>
+			body {
+				font-family: sans-serif;
+				padding: 16px;
+			}
+			table {
+				width: 100%;
+				border-collapse: collapse;
+				margin-top: 16px;
+			}
+			th,
+			td {
+				padding: 8px;
+				border: 1px solid #ccc;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>📝 Figma Comments</h1>
+		<div id="app"></div>
+
+		<script type="text/babel">
+			const { useEffect, useState } = React;
+
+			function App() {
+				const [comments, setComments] = useState([]);
+				const [loading, setLoading] = useState(true);
+				const [error, setError] = useState(null);
+
+				useEffect(() => {
+					const params = new URLSearchParams(window.location.search);
+					const accessToken = params.get("access_token");
+					const fileKey = params.get("fileKey");
+
+					if (!accessToken || !fileKey) {
+						setError("Missing access token or file key");
+						setLoading(false);
+						return;
+					}
+
+					fetch(`/api/comments?fileKey=${fileKey}`, {
+						headers: {
+							Authorization: `Bearer ${accessToken}`,
+						},
+					})
+						.then(res => res.json())
+						.then(data => {
+							setComments(data.comments || []);
+							setLoading(false);
+						})
+						.catch(err => {
+							setError("Failed to fetch comments");
+							setLoading(false);
+						});
+				}, []);
+
+				if (loading) return <p>Loading...</p>;
+				if (error) return <p style={{ color: "red" }}>{error}</p>;
+				if (!comments.length) return <p>No comments found</p>;
+
+				return (
+					<table>
+						<thead>
+							<tr>
+								<th>By</th>
+								<th>Message</th>
+								<th>Created At</th>
+							</tr>
+						</thead>
+						<tbody>
+							{comments.map(comment => (
+								<tr key={comment.id}>
+									<td>{comment.user?.handle}</td>
+									<td>{comment.message}</td>
+									<td>{new Date(comment.created_at).toLocaleString()}</td>
+								</tr>
+							))}
+						</tbody>
+					</table>
+				);
+			}
+
+			ReactDOM.render(<App />, document.getElementById("app"));
+		</script>
+	</body>
+</html>
