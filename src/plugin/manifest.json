@@ -1,0 +1,15 @@
+{
+	"name": "Figma Comment Board",
+	"id": "figma-comment-board-plugin",
+	"api": "1.0.0",
+	"main": "code.js",
+	"ui": "plugin-ui.html",
+	"editorType": ["figma"],
+	"permissions": ["comments", "fileaccess"],
+	"menu": [
+		{
+			"name": "Show Comment Board",
+			"command": "open"
+		}
+	]
+}

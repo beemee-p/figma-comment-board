@@ -8,7 +8,7 @@ export async function GET(req: NextRequest) {
 	}
 
 	// res
-	const res = await fetch("https://www.figma.com/api/oauth/token", {
+	const res = await fetch("https://api.figma.com/v1/oauth/token", {
 		method: "POST",
 		headers: { "Content-Type": "application/json" },
 		body: JSON.stringify({
@@ -27,8 +27,15 @@ export async function GET(req: NextRequest) {
 		return new NextResponse("Token fetch failed", { status: 500 });
 	}
 
-	// 리디렉션하면서 토큰을 쿼리로 넘김 (보안상 취약하므로 나중에 쿠키/세션으로 교체 추천)
-	return NextResponse.redirect(
-		`${process.env.NEXT_PUBLIC_BASE_URL}/?access_token=${tokenData.access_token}`
+	const response = NextResponse.redirect(
+		process.env.NEXT_PUBLIC_BASE_URL || "/"
 	);
+
+	response.cookies.set("access_token", tokenData.access_token, {
+		maxAge: 7776000, // 90 days in seconds
+		httpOnly: true, // Optional: for security
+		secure: process.env.NODE_ENV === "production", // Optional: use secure cookies in production
+	});
+
+	return response;
 }
