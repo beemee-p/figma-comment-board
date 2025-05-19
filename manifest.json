@@ -2,10 +2,9 @@
 	"name": "Figma Comment Board",
 	"id": "figma-comment-board-plugin",
 	"api": "1.0.0",
-	"main": "plugin/code.js",
-	"ui": "plugin/plugin-ui.html",
+	"main": "public/code.js",
+	"ui": "public/plugin/plugin-ui.html",
 	"editorType": ["figma"],
-	"permissions": ["comments", "fileaccess"],
 	"menu": [
 		{
 			"name": "Show Comment Board",
