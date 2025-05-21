@@ -21,7 +21,7 @@ export default defineConfig({
 				},
 			},
 		},
-		outDir: "public", // 빌드 결과물 디렉터리
+		outDir: "../public", // 빌드 결과물 디렉터리
 		emptyOutDir: true, // 기존 빌드 결과물 삭제
 	},
 });

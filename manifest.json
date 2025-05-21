@@ -3,7 +3,7 @@
 	"id": "figma-comment-board-plugin",
 	"api": "1.0.0",
 	"main": "public/code.js",
-	"ui": "public/plugin/plugin-ui.html",
+	"ui": "public/plugin-ui.html",
 	"editorType": ["figma"],
 	"menu": [
 		{
