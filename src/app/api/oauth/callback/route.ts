@@ -1,3 +1,4 @@
+import { ResponseCookie } from "next/dist/compiled/@edge-runtime/cookies";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
@@ -31,11 +32,14 @@ export async function GET(req: NextRequest) {
 		process.env.NEXT_PUBLIC_BASE_URL || "/"
 	);
 
-	response.cookies.set("access_token", tokenData.access_token, {
+	const cookieOptions: Partial<ResponseCookie> = {
 		maxAge: 7776000, // 90 days in seconds
 		httpOnly: true, // Optional: for security
 		secure: process.env.NODE_ENV === "production", // Optional: use secure cookies in production
-	});
+		sameSite: "lax",
+	};
+
+	response.cookies.set("access_token", tokenData.access_token, cookieOptions);
 
 	return response;
 }
