@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 async function getCommentList(): Promise<FigmaComment[] | undefined> {
 	try {
 		const res = await fetch(
-			`http://localhost:3000/api/comments?fileKey=IwoeDSFLT7lnGXlQs2qZrc`,
+			`${import.meta.env.VITE_BASE_URL}/api/comments?fileKey=IwoeDSFLT7lnGXlQs2qZrc`,
 			{
 				credentials: "include",
 			}
