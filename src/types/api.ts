@@ -1,4 +1,4 @@
-export interface FigmaComment {
+export interface FigmaCommentRes {
 	id: string;
 	uuid: string;
 	file_key: string;
@@ -29,4 +29,8 @@ export interface FigmaReaction {
 	emoji: string;
 	created_at: string;
 	user: FigmaUser;
+}
+
+export interface FigmaComment extends FigmaCommentRes {
+	replies?: FigmaCommentRes[];
 }

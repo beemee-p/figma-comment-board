@@ -1,13 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import { cookies } from "next/headers";
-import { FigmaComment } from "@/types/api";
+import { FigmaCommentRes } from "@/types/api";
 
 // preflight req for cors
 export async function OPTIONS() {
 	return new NextResponse(null, {
 		status: 204,
 		headers: {
-			"Access-Control-Allow-Origin": process.env.NEXT_PUBLIC_VITE_URL || "/",
+			"Access-Control-Allow-Origin":
+				process.env.NEXT_PUBLIC_VITE_URL || "http://localhost:5173",
 			"Access-Control-Allow-Credentials": "true",
 			"Access-Control-Allow-Methods": "GET, OPTIONS",
 			"Access-Control-Allow-Headers": "Content-Type, Authorization",
@@ -44,12 +45,13 @@ export async function GET(req: NextRequest) {
 		);
 	}
 
-	const data: FigmaComment[] = await res.json();
+	const data: FigmaCommentRes[] = await res.json();
 
 	return NextResponse.json(data, {
 		status: 200,
 		headers: {
-			"Access-Control-Allow-Origin": process.env.NEXT_PUBLIC_VITE_URL || "/",
+			"Access-Control-Allow-Origin":
+				process.env.NEXT_PUBLIC_VITE_URL || "http://localhost:5173",
 			"Access-Control-Allow-Credentials": "true",
 			"Content-Type": "application/json",
 		},
