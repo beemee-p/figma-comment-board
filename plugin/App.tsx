@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { FigmaComment } from "@/types/api";
 import React, { useEffect, useState } from "react";
 
@@ -64,12 +65,59 @@ const App = () => {
 		<main>
 			<h2>피그마 테이블</h2>
 			<table>
-				{commentList.map(comment => (
-					<tr key={comment.id}>
-						<td> {comment.user.handle} : </td>
-						<td>{comment.message}</td>
+				<thead>
+					<tr>
+						<th>
+							<input type="checkbox" />
+						</th>
+						<th>코멘트</th>
+						<th>작성자</th>
+						<th>작성일</th>
+						<th>파일 링크</th>
 					</tr>
-				))}
+				</thead>
+
+				<tbody>
+					{commentList.map(comment => (
+						<tr key={comment.id}>
+							<td>
+								<input type="checkbox" />
+							</td>
+							<td>{comment.message}</td>
+							<td>
+								<img
+									src={comment.user.img_url}
+									alt="una"
+									width="20"
+									height="20"
+								/>
+								{comment.user.handle}
+							</td>
+							<td>{comment.created_at}</td>
+							<td>
+								<a
+									href={`${import.meta.env.VITE_FIGMA_URL}/design/${comment.file_key}?node-id=${comment.client_meta.node_id.split(":")[0]}-${comment.client_meta.node_id.split(":")[1]}#${comment.id}`}
+									target="_blank"
+								>
+									코멘트 이동하기
+								</a>
+							</td>
+
+							{comment.replies && comment.replies.length > 0 && (
+								<tr>
+									<ul>
+										{comment.replies.map(reply => (
+											<li key={reply.id}>
+												{reply.message} - {reply.user.handle} (
+												{new Date(reply.created_at).toLocaleDateString()})
+											</li>
+										))}
+									</ul>
+								</tr>
+							)}
+						</tr>
+					))}
+				</tbody>
 			</table>
 		</main>
 	);
