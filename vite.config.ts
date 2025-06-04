@@ -5,6 +5,9 @@ import { resolve } from "path";
 export default defineConfig({
 	plugins: [react()],
 	root: "plugin",
+	resolve: {
+		alias: [{ find: "@", replacement: resolve(__dirname, "src") }],
+	},
 	build: {
 		rollupOptions: {
 			// 다중 입력 파일 설정

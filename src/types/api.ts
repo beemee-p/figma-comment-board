@@ -9,7 +9,7 @@ export interface FigmaCommentRes {
 	resolved_at: string | null;
 	user: FigmaUser;
 	reactions: FigmaReaction[];
-	client_meta: {
+	client_meta?: {
 		node_id: string;
 		node_offset: {
 			x: number;
