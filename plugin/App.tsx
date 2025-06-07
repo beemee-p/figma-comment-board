@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
-import CommentTable from "@/components/CommentTable";
-import { FigmaComment } from "@/types/api";
 import React, { useEffect, useState } from "react";
+import { FigmaComment } from "@/types/api";
+import CommentTable from "@/components/CommentTable";
 
 async function getCommentList(): Promise<FigmaComment[] | undefined> {
 	try {
@@ -62,6 +62,7 @@ const App = () => {
 
 	return (
 		<main>
+			<h1>📝 Figma Comments</h1>
 			<CommentTable commentList={commentList} />
 		</main>
 	);
