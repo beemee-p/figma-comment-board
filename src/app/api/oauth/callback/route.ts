@@ -29,7 +29,7 @@ export async function GET(req: NextRequest) {
 	}
 
 	const response = NextResponse.redirect(
-		process.env.NEXT_PUBLIC_BASE_URL || "/"
+		process.env.NEXT_PUBLIC_VITE_URL + "/plugin-ui.html"
 	);
 
 	const cookieOptions: Partial<ResponseCookie> = {

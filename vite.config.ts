@@ -10,7 +10,7 @@ export default defineConfig(({ mode }) => {
 	const codeBuildOptions = {
 		lib: {
 			entry: "./code.ts",
-			formats: ["cjs"], // CommonJS 형식으로 빌드
+			formats: ["cjs"] as ("es" | "cjs" | "umd" | "iife")[], // CommonJS 형식으로 빌드
 			fileName: () => "code.js",
 		},
 		rollupOptions: {

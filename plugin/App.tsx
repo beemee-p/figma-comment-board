@@ -49,7 +49,9 @@ function updateCommentsByParent(comments: FigmaComment[]): FigmaComment[] {
 }
 
 const App = () => {
-	const [commentList, setCommentList] = useState<FigmaComment[]>([]);
+	const [commentList, setCommentList] = useState<FigmaComment[] | undefined>(
+		undefined
+	);
 
 	useEffect(() => {
 		const setData = async () => {
@@ -60,10 +62,22 @@ const App = () => {
 		setData();
 	}, []);
 
+	// token 이 없을때는 서버에서 undefined 를 반환
+	// front 에서는 undfined 를 받으면 로그인 버튼을 보여줌
+	// 이게 맞는지 확인
 	return (
 		<main>
 			<h1>📝 Figma Comments</h1>
-			<CommentTable commentList={commentList} />
+			{!commentList ? (
+				<a
+					href={`${import.meta.env.VITE_BASE_URL}/api/oauth/login`}
+					className="px-4 py-2 bg-black text-white rounded"
+				>
+					Login with Figma
+				</a>
+			) : (
+				<CommentTable commentList={commentList} />
+			)}
 		</main>
 	);
 };
