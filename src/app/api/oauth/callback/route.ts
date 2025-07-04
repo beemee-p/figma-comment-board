@@ -11,7 +11,9 @@ export async function GET(req: NextRequest) {
 	// res
 	const res = await fetch("https://api.figma.com/v1/oauth/token", {
 		method: "POST",
-		headers: { "Content-Type": "application/json" },
+		headers: { 
+			"Content-Type": "application/x-www-form-urlencoded", 
+		},
 		body: JSON.stringify({
 			client_id: process.env.FIGMA_CLIENT_ID,
 			client_secret: process.env.FIGMA_CLIENT_SECRET,
@@ -28,9 +30,7 @@ export async function GET(req: NextRequest) {
 		return new NextResponse("Token fetch failed", { status: 500 });
 	}
 
-	const response = NextResponse.redirect(
-		process.env.NEXT_PUBLIC_VITE_URL + "/plugin-ui.html"
-	);
+	const response = new NextResponse("Authentication successful! You can close this tab.", { status: 200 })
 
 	const cookieOptions: Partial<ResponseCookie> = {
 		maxAge: 7776000, // 90 days in seconds
